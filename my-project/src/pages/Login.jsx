@@ -18,11 +18,6 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(formData.password.length < 8){
-        alert("Password must be at least 8 characters long");
-        return;
-    }
-
     try {
       const response = await axios.post(
         "http://localhost:8080/user/login",
@@ -36,8 +31,11 @@ export default function Login() {
 
       navigate("/");
     } catch (error) {
-      console.log(error.response?.data || error.message);
-      alert(error.response?.data)
+      console.log(error.response?.data);
+      alert(error.response?.data);
+      if (error.toLowerCase().includes("password")) {
+        alert("Invalid password");
+      }
     }
   };
 

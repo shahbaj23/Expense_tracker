@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -10,6 +10,8 @@ export default function Register() {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const { registerUser } = useContext(AuthContext);
 
@@ -30,7 +32,14 @@ export default function Register() {
       return;
     }
 
+    if(formData.password.length < 8){
+        alert("Password must be at least 8 characters long");
+        return;
+    }
+
     await registerUser(formData);
+
+    navigate("/login");
 
     setFormData({
       fullname: "",
