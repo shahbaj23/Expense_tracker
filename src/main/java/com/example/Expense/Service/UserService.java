@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public ResponseEntity<?> userLogin(User user) {
-        Optional<User> existUser = ur.findByEmailAndPassword(user.getEmail(), user.getPassword());
+        Optional<User> existUser = ur.findByEmail(user.getEmail());
 
         if(existUser.isEmpty()){
             return ResponseEntity.badRequest().body("Email is not exist!");
